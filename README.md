@@ -31,6 +31,3 @@ This is a secure and scalable authentication microservice built using **Flask** 
 - **JWT** for stateless authentication
 
 ---
-
-## 📁 Folder Structure
-
