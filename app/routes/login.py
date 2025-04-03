@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from ..extensions import db, bcrypt
-from ..model.user import User  # Fixed import path
+from ..model.user import User 
 from ..services.otp_service import set_user_otp, is_otp_valid, clear_otp
 from ..config import Config
 from twilio.rest import Client
@@ -12,7 +12,7 @@ login_bp = Blueprint('login_bp', __name__)
 # Twilio setup
 twilio_client = Client(Config.TWILIO_ACCOUNT_SID, Config.TWILIO_AUTH_TOKEN)
 
-# ✅ Helper: Send OTP via SMS
+# Send OTP via SMS
 def send_otp_sms(phone_number, otp):
     try:
         message = twilio_client.messages.create(
@@ -25,7 +25,7 @@ def send_otp_sms(phone_number, otp):
         print(f"Twilio error: {e}")
         return None
 
-# ✅ Step 1: Login with Email & Password, Send OTP via SMS
+# Login with Email & Password, Send OTP via SMS
 @login_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -48,7 +48,7 @@ def login():
 
     return jsonify({'message': 'OTP sent to your phone number.'}), 200
 
-# ✅ Step 2: Verify OTP and Return JWT Token
+# Verify OTP and Return JWT Token
 @login_bp.route('/verify-login', methods=['POST'])
 def verify_login():
     data = request.get_json()

@@ -10,7 +10,7 @@ from app.utils.role_required import role_required
 
 auth_bp = Blueprint('auth_bp', __name__)
 
-# ✅ User Registration
+# User Registration
 @auth_bp.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
@@ -37,7 +37,7 @@ def register():
 
     return jsonify({'message': 'User registered successfully. Check email for OTP.'}), 201
 
-# ✅ Verify Email with OTP
+# Verify Email with OTP
 @auth_bp.route('/verify-email', methods=['POST'])
 def verify_email():
     data = request.get_json()
@@ -57,14 +57,14 @@ def verify_email():
 
     return jsonify({'message': 'Email verified successfully'}), 200
 
-# ✅ Admin-only route
+# Admin-only route
 @auth_bp.route('/admin/dashboard', methods=['GET'])
 @jwt_required()
 @role_required(['admin'])
 def admin_dashboard():
     return jsonify({'message': 'Welcome Admin! You have full access.'})
 
-# ✅ Manager + Admin route
+# Manager + Admin route
 @auth_bp.route('/manager/summary', methods=['GET'])
 @jwt_required()
 @role_required(['admin', 'manager'])
@@ -98,7 +98,7 @@ def update_user_by_admin():
     if target_user.role == 'admin':
         return jsonify({'error': 'You are not allowed to update another admin’s information.'}), 403
 
-    # ✅ Update allowed fields
+    # Update allowed fields
     if 'first_name' in data:
         target_user.first_name = data['first_name']
     if 'last_name' in data:

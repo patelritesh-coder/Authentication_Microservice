@@ -8,7 +8,7 @@ import datetime
 
 password_bp = Blueprint('password_bp', __name__)
 
-# ✅ Step 1: Request Password Reset
+# Request Password Reset
 @password_bp.route('/request-password-reset', methods=['POST'])
 def request_password_reset():
     data = request.get_json()
@@ -28,7 +28,7 @@ def request_password_reset():
     send_reset_email(email, token)
     return jsonify({'message': 'Password reset link sent to your email.'}), 200
 
-# ✅ Step 2: Reset Password Using Token
+# Reset Password Using Token
 @password_bp.route('/reset-password/<token>', methods=['POST'])
 def reset_password(token):
     try:
